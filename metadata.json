@@ -1,0 +1,5 @@
+{
+  "name": "Magic 2026 Oracle",
+  "description": "A magical New Year greeting app that generates personalized predictions for 2026 using Gemini.",
+  "requestFramePermissions": []
+}
