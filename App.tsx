@@ -47,38 +47,6 @@ const ErrorMessage: React.FC<{ onRetry: () => void }> = ({ onRetry }) => (
   </div>
 );
 
-const StatusMessage: React.FC<{ status: LoadingState, onInteract: (e: any) => void }> = ({ status, onInteract }) => {
-  if (status === LoadingState.LOADING) {
-    return (
-      <div className="text-center -mt-8 space-y-4 relative z-10">
-        <p className="text-2xl text-amber-200 magic-font animate-pulse">Связываемся с космосом...</p>
-        <p className="text-sm text-slate-400 font-sans">Калибруем магические потоки на 2026 год</p>
-      </div>
-    );
-  }
-
-  if (status === LoadingState.IDLE) {
-    return (
-      <div className="text-center -mt-8 transition-all duration-500 relative z-10">
-        <p 
-          className="text-xl text-amber-100 font-normal leading-relaxed magic-font animate-pulse cursor-pointer hover:text-amber-200 select-none"
-          onClick={onInteract}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onInteract(e); }}
-        >
-          Коснитесь магического шара...
-        </p>
-        <p className="text-sm text-slate-400 font-sans mt-2 opacity-60">
-          ...чтобы узнать свою судьбу
-        </p>
-      </div>
-    );
-  }
-
-  return null;
-};
-
 // --- Main App Component ---
 
 const App: React.FC = () => {
@@ -150,8 +118,6 @@ const App: React.FC = () => {
                <ErrorMessage onRetry={() => setStatus(LoadingState.IDLE)} />
             )}
           </div>
-
-          <StatusMessage status={status} onInteract={handlePredict} />
         </div>
 
         <Footer />
