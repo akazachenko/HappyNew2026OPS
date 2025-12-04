@@ -2,44 +2,123 @@ import React from 'react';
 
 interface CrystalBallProps {
   isLoading: boolean;
+  onClick?: (e?: React.MouseEvent | React.KeyboardEvent) => void;
 }
 
-const CrystalBall: React.FC<CrystalBallProps> = ({ isLoading }) => {
+const CrystalBall: React.FC<CrystalBallProps> = ({ isLoading, onClick }) => {
+  const isInteractive = !!onClick && !isLoading;
+
+  const handleInteraction = (e: React.MouseEvent | React.KeyboardEvent) => {
+    if (isInteractive && onClick) {
+      e.stopPropagation();
+      e.preventDefault();
+      onClick(e);
+    }
+  };
+
   return (
-    <div className="relative w-48 h-48 mx-auto my-8 perspective-1000">
-      {/* Outer Glow */}
-      <div className={`absolute inset-0 rounded-full bg-blue-500 blur-3xl opacity-20 transition-all duration-1000 ${isLoading ? 'scale-125 opacity-40' : 'scale-100'}`}></div>
-      
-      {/* The Ball */}
+    <div 
+      className={`relative w-72 h-72 mx-auto my-12 ${isInteractive ? 'cursor-pointer group' : ''}`}
+      onClick={isInteractive ? handleInteraction : undefined}
+      role={isInteractive ? "button" : undefined}
+      tabIndex={isInteractive ? 0 : undefined}
+      onKeyDown={(e) => {
+        if (isInteractive && (e.key === 'Enter' || e.key === ' ')) {
+          handleInteraction(e);
+        }
+      }}
+    >
+      {/* 1. Ground Shadow (Perspective anchor) */}
+      <div className={`
+        absolute -bottom-6 left-1/2 transform -translate-x-1/2 
+        w-40 h-8 bg-black/60 blur-xl rounded-[100%] 
+        transition-all duration-1000
+        ${isLoading 
+          ? 'scale-50 opacity-20' 
+          : 'animate-[pulse_6s_ease-in-out_infinite] group-hover:scale-90 group-hover:opacity-50'
+        }
+      `}></div>
+
+      {/* 2. Outer Aura (Magical Glow) */}
+      <div className={`
+        absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+        w-[110%] h-[110%] rounded-full
+        bg-[radial-gradient(circle,_rgba(124,58,237,0.4)_0%,_rgba(0,0,0,0)_70%)]
+        transition-all duration-700 pointer-events-none
+        ${isLoading ? 'opacity-100 scale-110 animate-pulse-glow' : 'opacity-30 group-hover:opacity-60'}
+      `}></div>
+
+      {/* 3. THE BALL CONTAINER */}
       <div className={`
         relative w-full h-full rounded-full 
-        bg-gradient-to-br from-blue-200/30 via-purple-500/20 to-indigo-900/80
-        shadow-[inset_-10px_-10px_20px_rgba(0,0,0,0.5),inset_10px_10px_20px_rgba(255,255,255,0.4)]
-        backdrop-blur-sm border border-white/20
         flex items-center justify-center
-        overflow-hidden
-        transition-all duration-1000
-        ${isLoading ? 'animate-pulse shadow-[0_0_50px_rgba(147,197,253,0.6)]' : 'animate-float'}
+        transition-all duration-1000 ease-in-out
+        ${isLoading ? 'scale-105' : 'animate-float group-hover:scale-[1.02]'}
       `}>
         
-        {/* Swirling mist inside (only visible when loading) */}
-        {isLoading && (
-          <div className="absolute inset-0 w-full h-full">
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[spin_3s_linear_infinite] opacity-50 blur-xl origin-center transform scale-150"></div>
-          </div>
-        )}
-
-        {/* Reflection */}
-        <div className="absolute top-4 left-8 w-8 h-4 bg-white/40 blur-md rounded-[50%] rotate-[-45deg]"></div>
-        
-        {/* Center content */}
-        <div className="z-10 text-6xl">
-          {isLoading ? '🔮' : '✨'}
+        {/* A. Back Glass Layer (Darkness & Base Color) */}
+        <div className="absolute inset-0 rounded-full bg-slate-900 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+          {/* Deep ambient gradient */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(50,40,80,1)_0%,_rgba(10,10,20,1)_100%)]"></div>
         </div>
+
+        {/* B. Internal Volumetric Fog (The Magic) */}
+        <div className="absolute inset-2 rounded-full overflow-hidden mask-image-circle">
+            {/* Layer 1: Slow Deep Nebula (Purple) */}
+            <div className={`
+                absolute -top-[50%] -left-[50%] w-[200%] h-[200%]
+                bg-[conic-gradient(from_0deg,_transparent_0%,_rgba(168,85,247,0.3)_25%,_transparent_50%,_rgba(79,70,229,0.3)_75%,_transparent_100%)]
+                blur-2xl mix-blend-screen
+                transition-all duration-1000
+                ${isLoading ? 'animate-[spin_2s_linear_infinite] opacity-100' : 'animate-[spin_15s_linear_infinite] opacity-60'}
+            `}></div>
+
+            {/* Layer 2: Counter-rotating Mist (Blue/Cyan) */}
+            <div className={`
+                absolute -top-[50%] -left-[50%] w-[200%] h-[200%]
+                bg-[radial-gradient(ellipse_at_center,_rgba(34,211,238,0.2)_0%,_transparent_60%)]
+                blur-xl mix-blend-plus-lighter
+                transition-all duration-1000
+                ${isLoading ? 'animate-[spin_3s_linear_infinite_reverse] scale-110' : 'animate-[spin_20s_linear_infinite_reverse] scale-100 opacity-40'}
+            `}></div>
+            
+            {/* Layer 3: The Core (Hotspot) */}
+            <div className={`
+                absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                w-24 h-24 rounded-full
+                bg-[radial-gradient(circle,_rgba(251,191,36,0.8)_0%,_rgba(245,158,11,0)_70%)]
+                blur-xl mix-blend-screen transition-all duration-500
+                ${isLoading ? 'scale-150 opacity-100 animate-pulse' : 'scale-75 opacity-20 animate-inner-glow'}
+            `}></div>
+        </div>
+
+        {/* C. Front Glass Shell (Reflections & 3D Form) */}
+        <div className="absolute inset-0 rounded-full z-20 pointer-events-none">
+            {/* 1. Inner Shadow (Creates the "thick glass" look) */}
+            <div className="absolute inset-0 rounded-full shadow-[inset_-20px_-20px_60px_rgba(0,0,0,0.9),inset_10px_10px_40px_rgba(255,255,255,0.1)]"></div>
+            
+            {/* 2. Top-Left Specular Highlight (The main light source reflection) */}
+            <div className="absolute top-8 left-10 w-24 h-12 bg-gradient-to-b from-white to-transparent opacity-30 blur-sm rounded-[100%] rotate-[-45deg]"></div>
+            <div className="absolute top-10 left-12 w-12 h-6 bg-white opacity-60 blur-[2px] rounded-[100%] rotate-[-45deg]"></div>
+
+            {/* 3. Bottom-Right Rim Light (Reflected environment light) */}
+            <div className="absolute bottom-6 right-8 w-32 h-32 bg-[radial-gradient(circle_at_bottom_right,_rgba(147,197,253,0.3),_transparent_70%)] blur-md rounded-full"></div>
+            
+            {/* 4. Surface Gloss */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-50"></div>
+        </div>
+
+        {/* D. Center Icon/Content (Floating inside) */}
+        <div className="relative z-10 mix-blend-overlay">
+           <div className={`transition-all duration-700 transform ${isLoading ? 'scale-0 opacity-0' : 'scale-100 opacity-80 group-hover:scale-110'}`}>
+              <span className="text-7xl filter drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">✨</span>
+           </div>
+           <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 transform ${isLoading ? 'scale-110 opacity-100' : 'scale-0 opacity-0'}`}>
+              <span className="text-7xl">🔮</span>
+           </div>
+        </div>
+
       </div>
-      
-      {/* Base */}
-      <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-black/40 blur-lg rounded-[50%]"></div>
     </div>
   );
 };
