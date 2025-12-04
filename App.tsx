@@ -66,15 +66,12 @@ const App: React.FC = () => {
         <header className="text-center mb-8 animate-float">
           <div className="flex justify-center items-center gap-3 mb-4 text-amber-300">
             <Star className="w-5 h-5 animate-pulse" />
-            <span className="text-xs font-bold tracking-[0.4em] uppercase opacity-80 font-sans">Новогодний Оракул</span>
+            <span className="text-xs font-bold tracking-[0.4em] uppercase opacity-80 font-sans">Новогодний Agile-оракул</span>
             <Star className="w-5 h-5 animate-pulse" />
           </div>
           <h1 className="text-4xl md:text-7xl font-normal bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-200 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(251,191,36,0.3)] leading-tight magic-font">
             Предсказания <br className="md:hidden" /> на 2026 год
           </h1>
-          <p className="mt-6 text-slate-300 max-w-lg mx-auto text-lg font-light leading-relaxed">
-            Загляни в будущее! Узнай, что готовят звезды в грядущем году.
-          </p>
         </header>
 
         {/* Main Content Area */}
@@ -174,7 +171,7 @@ const App: React.FC = () => {
         {/* Footer */}
         <footer className="mt-20 text-center text-slate-500 text-sm">
           <p className="text-amber-400/90 text-lg mb-4 magic-font animate-pulse drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
-            От DAC Team для Operations с любовью ❤️
+            От DAC Team с любовью ❤️
           </p>
           <p className="flex items-center justify-center gap-2 opacity-50 font-sans text-xs uppercase tracking-widest">
             <Wand2 className="w-3 h-3" /> 
