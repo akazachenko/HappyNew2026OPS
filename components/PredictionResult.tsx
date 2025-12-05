@@ -15,6 +15,7 @@ export const PredictionResult: React.FC<PredictionResultProps> = ({ result, onRe
       case 'love': return '❤️';
       case 'wisdom': return '🧠';
       case 'success': return '🏆';
+      case 'slot_machine': return '🎰';
       default: return '✨';
     }
   };
@@ -32,7 +33,7 @@ export const PredictionResult: React.FC<PredictionResultProps> = ({ result, onRe
             </div>
             
             <p className="text-xl md:text-2xl leading-relaxed text-slate-100 mb-8 magic-font drop-shadow-md">
-              "{result.prediction}"
+              {result.prediction}
             </p>
 
             <button 
