@@ -1,7 +1,9 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { generateNewYearPrediction } from './services/geminiService';
+import { incrementWishCount } from './services/statsService';
 import Snowfall from './components/Snowfall';
 import CrystalBall from './components/CrystalBall';
+import StatsIcon from './components/StatsIcon';
 import { PredictionResult } from './components/PredictionResult';
 import { LoadingState, PredictionResponse } from './types';
 import { Star, Wand2, Moon } from 'lucide-react';
@@ -67,6 +69,9 @@ const App: React.FC = () => {
     setResult(null);
 
     try {
+      // Fire and forget the stats increment
+      incrementWishCount();
+      
       const data = await generateNewYearPrediction();
       setResult(data);
       setStatus(LoadingState.SUCCESS);
@@ -90,6 +95,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#1a1c2e] to-black text-white selection:bg-amber-500/30">
       <Snowfall />
+      <StatsIcon />
 
       <main className="relative z-10 container mx-auto px-4 py-8 min-h-screen flex flex-col items-center justify-center">
         

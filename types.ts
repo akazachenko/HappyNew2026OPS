@@ -1,6 +1,6 @@
 export interface PredictionResponse {
   prediction: string;
-  theme: 'success' | 'wealth' | 'travel' | 'love' | 'wisdom';
+  theme: 'success' | 'wealth' | 'travel' | 'love' | 'wisdom' | 'slot_machine';
 }
 
 export enum LoadingState {
