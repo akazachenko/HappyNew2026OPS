@@ -18,7 +18,7 @@ const CrystalBall: React.FC<CrystalBallProps> = ({ isLoading, onClick }) => {
 
   return (
     <div 
-      className={`relative w-72 h-72 mx-auto my-12 ${isInteractive ? 'cursor-pointer group' : ''}`}
+      className={`relative w-72 h-72 mx-auto my-6 md:my-12 ${isInteractive ? 'cursor-pointer group' : ''}`}
       onClick={isInteractive ? handleInteraction : undefined}
       role={isInteractive ? "button" : undefined}
       tabIndex={isInteractive ? 0 : undefined}
@@ -114,22 +114,22 @@ const CrystalBall: React.FC<CrystalBallProps> = ({ isLoading, onClick }) => {
               `}></div>
           </div>
 
-          {/* C. Front Glass Shell - Refined highlights, no dark insets */}
+          {/* C. Front Glass Layer */}
           <div className="absolute inset-0 rounded-full z-20 pointer-events-none">
-              {/* 1. Inner Shadow - replaced black with deep purple/blue to remove "muddy" edge */}
+              {/* 1. Inner Shadow */}
               <div className="absolute inset-0 rounded-full shadow-[inset_-10px_-10px_40px_rgba(30,27,75,0.4),inset_5px_5px_20px_rgba(255,255,255,0.2)]"></div>
               
               {/* 2. Top-Left Highlight */}
               <div className="absolute top-8 left-10 w-24 h-12 bg-gradient-to-b from-white to-transparent opacity-40 blur-sm rounded-[100%] rotate-[-45deg]"></div>
               <div className="absolute top-10 left-12 w-12 h-6 bg-white opacity-70 blur-[2px] rounded-[100%] rotate-[-45deg]"></div>
 
-              {/* 3. Bottom-Right Rim Light - Brighter blue for glass effect */}
+              {/* 3. Bottom-Right Rim Light */}
               <div className="absolute bottom-6 right-8 w-32 h-32 bg-[radial-gradient(circle_at_bottom_right,_rgba(147,197,253,0.3),_transparent_70%)] blur-md rounded-full"></div>
               
               {/* 4. Surface Gloss */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-40"></div>
               
-              {/* 5. Rim highlight - made slightly stronger/sharper to define edge without darkness */}
+              {/* 5. Rim highlight */}
               <div className="absolute inset-0 rounded-full shadow-[inset_0_0_3px_rgba(255,255,255,0.3)]"></div>
           </div>
 

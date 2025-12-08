@@ -11,21 +11,21 @@ import { Star, Wand2, Moon } from 'lucide-react';
 // --- Sub-components for cleaner layout ---
 
 const Header: React.FC = () => (
-  <header className="text-center mb-8 animate-float">
-    <div className="flex justify-center items-center gap-3 mb-4 text-amber-300">
+  <header className="text-center mb-2 md:mb-8 animate-float">
+    <div className="flex justify-center items-center gap-3 mb-2 md:mb-4 text-amber-300">
       <Star className="w-5 h-5 animate-pulse" />
       <span className="text-xs font-bold tracking-[0.4em] uppercase opacity-80 font-sans">Новогодний Agile-оракул</span>
       <Star className="w-5 h-5 animate-pulse" />
     </div>
-    <h1 className="text-4xl md:text-7xl font-normal bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-200 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(251,191,36,0.3)] leading-tight magic-font">
+    <h1 className="text-3xl md:text-7xl font-normal bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-200 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(251,191,36,0.3)] leading-tight magic-font">
       Предсказания <br className="md:hidden" /> на 2026 год
     </h1>
   </header>
 );
 
 const Footer: React.FC = () => (
-  <footer className="mt-20 text-center text-slate-500 text-sm">
-    <p className="text-amber-400/90 text-lg mb-4 magic-font animate-pulse drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
+  <footer className="mt-8 md:mt-20 text-center text-slate-500 text-sm">
+    <p className="text-amber-400/90 text-lg mb-2 md:mb-4 magic-font animate-pulse drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
       От DAC Team с любовью ❤️
     </p>
     <p className="flex items-center justify-center gap-2 opacity-50 font-sans text-xs uppercase tracking-widest">
@@ -97,13 +97,13 @@ const App: React.FC = () => {
       <Snowfall />
       <StatsIcon />
 
-      <main className="relative z-10 container mx-auto px-4 py-8 min-h-screen flex flex-col items-center justify-center">
+      <main className="relative z-10 container mx-auto px-4 py-2 md:py-8 min-h-screen flex flex-col items-center justify-center">
         
         <Header />
 
         <div className="w-full max-w-xl">
           {/* Interactive Area */}
-          <div className="grid grid-cols-1 grid-rows-1 place-items-center min-h-[400px]">
+          <div className="grid grid-cols-1 grid-rows-1 place-items-center min-h-[300px] md:min-h-[400px]">
             
             {/* Background Layer: Crystal Ball */}
             <div className={`col-start-1 row-start-1 transition-all duration-1000 ease-in-out ${

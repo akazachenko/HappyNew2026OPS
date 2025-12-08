@@ -21,11 +21,12 @@ const StatsIcon: React.FC = () => {
   };
 
   return (
-    <div className="fixed top-4 right-4 z-50">
+    <div className="fixed right-4 z-50 bottom-4 md:top-4 md:bottom-auto">
       <div 
         className="relative group"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={showTooltip ? handleMouseLeave : handleMouseEnter}
       >
         <button 
           className="p-3 bg-slate-900/40 backdrop-blur-md border border-white/10 rounded-full text-slate-400 hover:text-amber-300 hover:bg-slate-800/60 hover:border-amber-500/30 transition-all duration-300 shadow-lg group-hover:shadow-[0_0_15px_rgba(251,191,36,0.2)]"
@@ -34,8 +35,21 @@ const StatsIcon: React.FC = () => {
           <BarChart2 className="w-5 h-5" />
         </button>
         
-        <div className={`absolute top-full right-0 mt-3 transition-all duration-300 transform origin-top-right ${showTooltip ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}`}>
-          <div className="bg-slate-900/95 backdrop-blur-xl border border-amber-500/20 rounded-xl p-4 shadow-2xl w-48 text-center relative overflow-hidden">
+        <div className={`
+          absolute right-0 w-48 transition-all duration-300 transform 
+          
+          /* Mobile: Tooltip opens UPWARDS */
+          bottom-full mb-3 origin-bottom-right
+          
+          /* Desktop: Tooltip opens DOWNWARDS */
+          md:bottom-auto md:mb-0 md:top-full md:mt-3 md:origin-top-right
+
+          ${showTooltip 
+            ? 'opacity-100 scale-100 translate-y-0' 
+            : 'opacity-0 scale-95 translate-y-2 md:-translate-y-2 pointer-events-none'
+          }
+        `}>
+          <div className="bg-slate-900/95 backdrop-blur-xl border border-amber-500/20 rounded-xl p-4 shadow-2xl text-center relative overflow-hidden">
              {/* Decorative shine */}
              <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/5 to-transparent pointer-events-none"></div>
              
